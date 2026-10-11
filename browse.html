@@ -1,0 +1,1131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chethan J D | Frontend Developer | Electronics & Communication</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="netflix-styles.css">
+    <style>
+        /* Full-page background video */
+        .bg-video-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            overflow: hidden;
+        }
+        .bg-video-container video {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            transform: translate(-50%, -50%);
+            object-fit: cover;
+            opacity: 0;
+            transition: opacity 0.8s ease;
+            pointer-events: none;
+        }
+        .bg-video-container video.ready {
+            opacity: 1;
+        }
+        @media (prefers-reduced-motion: reduce) {
+            .bg-video-container video { display: none; }
+        }
+        .bg-video-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: rgba(0, 0, 0, 0.55);
+        }
+        @media (max-width: 600px) {
+            .bg-video-overlay { background: rgba(0, 0, 0, 0.65); }
+        }
+
+        /* Microsoft experience card */
+        .experience-card.microsoft {
+            border-left: 3px solid #0078D4;
+        }
+        .experience-card.microsoft .exp-company {
+            color: #0078D4;
+        }
+
+        /* Transition Learning grid */
+        .msft-prep-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .msft-prep-card {
+            background: rgba(0, 120, 212, 0.07);
+            border: 1px solid rgba(0, 120, 212, 0.25);
+            border-radius: 12px;
+            padding: 24px;
+            transition: border-color 0.2s, transform 0.2s;
+        }
+        .msft-prep-card:hover {
+            border-color: rgba(0, 120, 212, 0.6);
+            transform: translateY(-2px);
+        }
+        .msft-prep-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        .msft-prep-tags span {
+            background: rgba(0, 120, 212, 0.15);
+            color: #60a5fa;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+        }
+
+        /* Distributed Systems tags */
+        .ds-tags-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            max-width: 900px;
+            margin: 0 auto 40px;
+            justify-content: center;
+        }
+        .ds-tag {
+            background: rgba(99, 102, 241, 0.12);
+            border: 1px solid rgba(99, 102, 241, 0.3);
+            color: #a5b4fc;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.875rem;
+            transition: background 0.2s, border-color 0.2s;
+        }
+        .ds-tag:hover {
+            background: rgba(99, 102, 241, 0.25);
+            border-color: rgba(99, 102, 241, 0.6);
+        }
+
+        /* CoffeeScope card buttons: filled primary + outline secondary */
+        .card-link.live {
+            background: linear-gradient(135deg, #e50914, #ff4d4d);
+            color: #fff;
+        }
+        .card-link.live:hover {
+            filter: brightness(1.12);
+        }
+        .card-link:focus-visible {
+            outline: 2px solid #fff;
+            outline-offset: 2px;
+        }
+    </style>
+<link rel="manifest" href="/manifest.webmanifest">
+<link rel="icon" href="icons/icon-192.png">
+<link rel="apple-touch-icon" href="/icons/icon-192.png">
+<meta name="theme-color" content="#141414">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+</head>
+<body>
+    <!-- Full-Page Background Video (one fixed clip per profile) -->
+    <div class="bg-video-container">
+        <video id="bg-video" autoplay muted loop playsinline preload="auto"></video>
+    </div>
+    <div class="bg-video-overlay"></div>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-left">
+            <a href="index.html" class="nav-logo">CHETHAN J D</a>
+            <ul class="nav-menu">
+                <li><a href="#home" class="active">Home</a></li>
+                <li><a href="#experience">Professional</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#daily-shipping">Projects</a></li>
+                <li><a href="#certifications">Certifications</a></li>
+                <li><a href="about.html">About Me</a></li>
+                <li><a href="#contact">Hire Me</a></li>
+            </ul>
+        </div>
+        <div class="nav-right">
+            <div class="hamburger" id="rf-hamburger" aria-label="Menu">
+                <span></span><span></span><span></span>
+            </div>
+            <a href="index.html" class="profile-icon" id="current-profile">
+                <img src="assets/profiles/profile.png" alt="Profile" class="nav-profile-img" id="nav-profile-img">
+            </a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-background">
+            <div class="hero-gradient"></div>
+        </div>
+        <div class="hero-content">
+            <h1 class="hero-title">Chethan J D</h1>
+            <p class="hero-subtitle">Frontend Developer · ECE Undergraduate</p>
+            <p class="hero-description">
+                Frontend Developer candidate building <strong>responsive, interactive web apps</strong> with
+                <strong>React, Next.js and TypeScript</strong> — live deployed projects with auth, dashboards,
+                API integration and real-time data. Electronics & Communication undergraduate
+                (Presidency University, CGPA 8.31) with a project-driven foundation in
+                <strong>embedded systems & IoT</strong> (Arduino, Raspberry Pi, sensor integration) and
+                software development in <strong>Java, Python and Verilog</strong>.
+            </p>
+            <div class="hero-buttons">
+                <a href="assets/resume.pdf" download="Chethan_JD_Resume.pdf" class="btn btn-play">
+                    <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                    Resume
+                </a>
+                <a href="mailto:chethanjd2006@gmail.com" class="btn btn-info">
+                    <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+                    Email Me
+                </a>
+                <a href="https://www.linkedin.com/in/chethanjd" target="_blank" rel="noopener" class="btn btn-info">
+                    <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+                    LinkedIn
+                </a>
+                <a href="https://github.com/ChethanJD" target="_blank" rel="noopener" class="btn btn-info">
+                    <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                    GitHub
+                </a>
+                <a href="#daily-shipping" class="btn btn-play">
+                    <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M3 13h2v8H3zm4-4h2v12H7zm4-2h2v14h-2zm4 4h2v10h-2zm4-6h2v16h-2z"/></svg>
+                    View Projects
+                </a>
+            </div>
+            <div class="hero-tags">
+                <span class="tag">React</span>
+                <span class="tag">Next.js</span>
+                <span class="tag">TypeScript</span>
+                <span class="tag">ECE · CGPA 8.31</span>
+                <span class="tag">Embedded C</span>
+                <span class="tag">IoT</span>
+                <span class="tag">Bengaluru, India</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Me Section -->
+    <section id="about" class="content-row" style="background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 100%);">
+        <div class="container">
+            <h2 class="row-title" style="text-align: center; margin-bottom: 40px;">Beyond the Code</h2>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; max-width: 1200px; margin: 0 auto;">
+
+                <!-- Backend Engineering & Architecture -->
+                <div style="background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); border-radius: 16px; padding: 30px; border: 1px solid #333; position: relative; overflow: hidden;">
+                    <div style="position: absolute; top: -20px; right: -20px; font-size: 80px; opacity: 0.1;">&#9881;</div>
+                    <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 20px;">
+                        <div style="width: 50px; height: 50px; background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 24px;">&#9881;</div>
+                        <h3 style="color: #fff; margin: 0; font-size: 1.3rem;">Frontend Development & UI</h3>
+                    </div>
+                    <p style="color: #aaa; line-height: 1.7; margin-bottom: 15px;">I build responsive, interactive web apps — reusable components, auth, forms, dashboards, search/filtering and real-time backend-driven data. CoffeeScope (agri marketplace dashboard) and a browser-based logic-gate simulator are my flagship frontend builds.</p>
+                    <div style="display: flex; flex-wrap: wrap; gap: 8px;">
+                        <span style="background: rgba(59, 130, 246, 0.2); color: #60a5fa; padding: 6px 12px; border-radius: 20px; font-size: 0.85rem;">React</span>
+                        <span style="background: rgba(59, 130, 246, 0.2); color: #60a5fa; padding: 6px 12px; border-radius: 20px; font-size: 0.85rem;">Next.js</span>
+                        <span style="background: rgba(59, 130, 246, 0.2); color: #60a5fa; padding: 6px 12px; border-radius: 20px; font-size: 0.85rem;">TypeScript</span>
+                        <span style="background: rgba(59, 130, 246, 0.2); color: #60a5fa; padding: 6px 12px; border-radius: 20px; font-size: 0.85rem;">Tailwind CSS</span>
+                    </div>
+                </div>
+
+                <!-- AI Research -->
+                <div style="background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); border-radius: 16px; padding: 30px; border: 1px solid #333; position: relative; overflow: hidden;">
+                    <div style="position: absolute; top: -20px; right: -20px; font-size: 80px; opacity: 0.1;">🧠</div>
+                    <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 20px;">
+                        <div style="width: 50px; height: 50px; background: linear-gradient(135deg, #8b5cf6 0%, #6d28d9 100%); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 24px;">🧠</div>
+                        <h3 style="color: #fff; margin: 0; font-size: 1.3rem;">Embedded Systems & IoT</h3>
+                    </div>
+                    <p style="color: #aaa; line-height: 1.7; margin-bottom: 15px;">My engineering home turf: <strong style="color:#c4b5fd">Embedded C/C++ firmware</strong>, Arduino sensor/motor control, Raspberry Pi IoT nodes, and hardware debugging with multimeters and oscilloscopes. Projects span a disaster-relief robot, IoT traffic control and a battery management system.</p>
+                    <div style="display: flex; flex-wrap: wrap; gap: 8px;">
+                        <span style="background: rgba(139, 92, 246, 0.2); color: #a78bfa; padding: 6px 12px; border-radius: 20px; font-size: 0.85rem;">Embedded C/C++</span>
+                        <span style="background: rgba(139, 92, 246, 0.2); color: #a78bfa; padding: 6px 12px; border-radius: 20px; font-size: 0.85rem;">Arduino</span>
+                        <span style="background: rgba(139, 92, 246, 0.2); color: #a78bfa; padding: 6px 12px; border-radius: 20px; font-size: 0.85rem;">Raspberry Pi</span>
+                        <span style="background: rgba(139, 92, 246, 0.2); color: #a78bfa; padding: 6px 12px; border-radius: 20px; font-size: 0.85rem;">UART / I2C / SPI</span>
+                        <span style="background: rgba(139, 92, 246, 0.2); color: #a78bfa; padding: 6px 12px; border-radius: 20px; font-size: 0.85rem;">Sensors & Motors</span>
+                        <span style="background: rgba(139, 92, 246, 0.2); color: #a78bfa; padding: 6px 12px; border-radius: 20px; font-size: 0.85rem;">Verilog</span>
+                    </div>
+                </div>
+
+                <!-- Hardware Builds -->
+                <div style="background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); border-radius: 16px; padding: 30px; border: 1px solid #333; position: relative; overflow: hidden;">
+                    <div style="position: absolute; top: -20px; right: -20px; font-size: 80px; opacity: 0.1;">🏏</div>
+                    <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 20px;">
+                        <div style="width: 50px; height: 50px; background: linear-gradient(135deg, #10b981 0%, #059669 100%); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 24px;">🏏</div>
+                        <h3 style="color: #fff; margin: 0; font-size: 1.3rem;">Hardware Builds</h3>
+                    </div>
+                    <p style="color: #aaa; line-height: 1.7; margin-bottom: 20px;">I like building things you can touch: an Arduino robot for disaster relief and debris removal, an IoT traffic-management concept on Raspberry Pi, and a battery management system presented at a branch-level technical competition.</p>
+
+                    <div style="display: flex; flex-wrap: wrap; gap: 8px; margin-top: 15px;">
+                        <span style="background: rgba(16, 185, 129, 0.2); color: #6ee7b7; padding: 6px 12px; border-radius: 20px; font-size: 0.85rem;">Arduino Robot</span>
+                        <span style="background: rgba(16, 185, 129, 0.2); color: #6ee7b7; padding: 6px 12px; border-radius: 20px; font-size: 0.85rem;">IoT Traffic Control</span>
+                        <span style="background: rgba(16, 185, 129, 0.2); color: #6ee7b7; padding: 6px 12px; border-radius: 20px; font-size: 0.85rem;">BMS Design</span>
+                    </div>
+                </div>
+
+                <!-- AI, Data & Backend -->
+                <div style="background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); border-radius: 16px; padding: 30px; border: 1px solid #333; position: relative; overflow: hidden;">
+                    <div style="position: absolute; top: -20px; right: -20px; font-size: 80px; opacity: 0.1;">🤖</div>
+                    <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 20px;">
+                        <div style="width: 50px; height: 50px; background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 24px;">🤖</div>
+                        <h3 style="color: #fff; margin: 0; font-size: 1.3rem;">AI, Data & Backend Basics</h3>
+                    </div>
+                    <p style="color: #aaa; line-height: 1.7; margin-bottom: 15px;">Rounding out the stack: <strong style="color:#fcd34d">CNN/LSTM fundamentals</strong>, OpenAI API + prompt engineering, and a Spring Boot + Kafka + REST simulation from the JPMorgan Chase job simulation. Enough backend to make frontends genuinely full-stack.</p>
+                    <div style="display: flex; flex-wrap: wrap; gap: 8px;">
+                        <span style="background: rgba(245, 158, 11, 0.2); color: #fcd34d; padding: 6px 12px; border-radius: 20px; font-size: 0.85rem;">Python</span>
+                        <span style="background: rgba(245, 158, 11, 0.2); color: #fcd34d; padding: 6px 12px; border-radius: 20px; font-size: 0.85rem;">Java</span>
+                        <span style="background: rgba(245, 158, 11, 0.2); color: #fcd34d; padding: 6px 12px; border-radius: 20px; font-size: 0.85rem;">TensorFlow / PyTorch</span>
+                        <span style="background: rgba(245, 158, 11, 0.2); color: #fcd34d; padding: 6px 12px; border-radius: 20px; font-size: 0.85rem;">OpenAI API</span>
+                        <span style="background: rgba(245, 158, 11, 0.2); color: #fcd34d; padding: 6px 12px; border-radius: 20px; font-size: 0.85rem;">Spring Boot / Kafka</span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Today's Top Picks Section -->
+    <section id="projects" class="content-row">
+        <div class="container">
+            <h2 class="row-title">Today's Top Picks for <span id="profile-name">recruiter</span></h2>
+            <div class="netflix-row">
+                <div class="netflix-card" onclick="document.getElementById('skills').scrollIntoView({behavior: 'smooth'})">
+                    <img src="https://images.unsplash.com/photo-1504639725590-34d0984388bd?w=400&h=225&fit=crop" alt="Skills">
+                    <div class="netflix-card-overlay">
+                        <span class="netflix-card-title">Skills</span>
+                    </div>
+                </div>
+                <div class="netflix-card" onclick="document.getElementById('experience').scrollIntoView({behavior: 'smooth'})">
+                    <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=400&h=225&fit=crop" alt="Experience">
+                    <div class="netflix-card-overlay">
+                        <span class="netflix-card-title">Experience</span>
+                    </div>
+                </div>
+                <div class="netflix-card" onclick="document.getElementById('certifications').scrollIntoView({behavior: 'smooth'})">
+                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=225&fit=crop" alt="Certifications">
+                    <div class="netflix-card-overlay">
+                        <span class="netflix-card-title">Certifications</span>
+                    </div>
+                </div>
+                <div class="netflix-card" onclick="document.getElementById('contact').scrollIntoView({behavior: 'smooth'})">
+                    <img src="https://images.unsplash.com/photo-1521791136064-7986c2920216?w=400&h=225&fit=crop" alt="Contact">
+                    <div class="netflix-card-overlay">
+                        <span class="netflix-card-title">Contact</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Continue Watching Section -->
+    <section class="content-row" id="continue-watching">
+        <div class="container">
+            <h2 class="row-title">Continue Watching for <span class="profile-name-span">recruiter</span></h2>
+            <div class="netflix-row">
+                <div class="netflix-card" onclick="window.open('https://coffeescope.vercel.app/', '_blank', 'noopener')" style="cursor: pointer;">
+                    <img src="https://images.unsplash.com/photo-1642790106117-e829e14a795f?w=400&h=225&fit=crop" alt="CoffeeScope Live">
+                    <div class="netflix-card-overlay">
+                        <span class="netflix-card-title">CoffeeScope Live</span>
+                        <span class="netflix-card-badge">Live Demo</span>
+                    </div>
+                    <div class="progress-indicator" style="width: 100%"></div>
+                </div>
+                <div class="netflix-card" onclick="window.open('https://cjd-logic-board.netlify.app/', '_blank', 'noopener')" style="cursor: pointer;">
+                    <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=400&h=225&fit=crop" alt="Logic Board Live">
+                    <div class="netflix-card-overlay">
+                        <span class="netflix-card-title">Logic Board Live</span>
+                        <span class="netflix-card-badge">Live Demo</span>
+                    </div>
+                    <div class="progress-indicator" style="width: 100%"></div>
+                </div>
+                <div class="netflix-card" onclick="window.location.href='demos/wifivision/index.html'" style="cursor: pointer;">
+                    <img src="https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=400&h=225&fit=crop" alt="WiFi Sensing Demo">
+                    <div class="netflix-card-overlay">
+                        <span class="netflix-card-title">WiFi Sensing Demo</span>
+                        <span class="netflix-card-badge">Canvas</span>
+                    </div>
+                    <div class="progress-indicator" style="width: 100%"></div>
+                </div>
+                <div class="netflix-card" onclick="window.location.href='about.html'" style="cursor: pointer;">
+                    <img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=400&h=225&fit=crop" alt="About Me">
+                    <div class="netflix-card-overlay">
+                        <span class="netflix-card-title">About Me</span>
+                        <span class="netflix-card-badge">Story</span>
+                    </div>
+                    <div class="progress-indicator" style="width: 80%"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Daily Shipping Section -->
+    <section id="daily-shipping" class="content-row daily-shipping-section">
+        <div class="container">
+            <h2 class="row-title">
+                <span class="shipping-icon">📦</span>
+                Shipping Daily
+                <span class="shipping-badge">LLM Projects</span>
+            </h2>
+            <div class="daily-cards-grid">
+                <div class="daily-card featured">
+                    <div class="daily-card-image">
+                        <img src="assets/coffeescope.png" alt="CoffeeScope">
+                        <div class="day-badge new">Featured</div>
+                        <div class="card-gradient"></div>
+                    </div>
+                    <div class="daily-card-content">
+                        <h3>CoffeeScope — Agri Marketplace Dashboard</h3>
+                        <p class="card-description">Responsive React + Next.js + TypeScript marketplace with reusable components, auth, forms, dashboards, market analytics, alerts, search/filtering and Supabase-backed real-time data.</p>
+                        <div class="card-stats">
+                            <span class="stat-item"><strong>Next.js</strong> + React</span>
+                            <span class="stat-item"><strong>Supabase</strong> backend</span>
+                            <span class="stat-item"><strong>Live</strong> deployed</span>
+                        </div>
+                        <div class="card-links">
+                            <a href="https://coffeescope.vercel.app/" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()" class="card-link live">
+                                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+                                Live Demo
+                            </a>
+                            <a href="https://github.com/ChethanJD/coffeescope" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()" class="card-link github">
+                                <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                                GitHub Repo
+                            </a>
+                        </div>
+                    </div>
+                </div>                <div class="daily-card featured">
+                    <div class="daily-card-image">
+                        <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=400&h=250&fit=crop" alt="Logic Gate Simulator">
+                        <div class="day-badge new">Featured</div>
+                        <div class="card-gradient"></div>
+                    </div>
+                    <div class="daily-card-content">
+                        <h3>Logic Gate Simulator</h3>
+                        <p class="card-description">Interactive in-browser digital-circuit builder: reusable gate/input/output components, state propagation, truth-table behavior and responsive layouts.</p>
+                        <div class="card-stats">
+                            <span class="stat-item"><strong>React</strong> + JS/TS</span>
+                            <span class="stat-item"><strong>100%</strong> in-browser</span>
+                        </div>
+                        <div class="card-links">
+                            <a href="https://cjd-logic-board.netlify.app/" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()" class="card-link live">
+                                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+                                Live Demo
+                            </a>
+                            <a href="https://github.com/ChethanJD/cjd-logic-board" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()" class="card-link github">
+                                <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                                GitHub Repo
+                            </a>
+                        </div>
+                    </div>
+                </div>                <div class="daily-card">
+                    <div class="daily-card-image">
+                        <img src="assets/battery-management-system.png" alt="Battery Management System">
+                        <div class="day-badge">Hardware</div>
+                        <div class="card-gradient"></div>
+                    </div>
+                    <div class="daily-card-content">
+                        <h3>Battery Management System</h3>
+                        <p class="card-description">BMS design covering monitoring, safety and protection circuits — presented at a branch-level technical competition.</p>
+                        <div class="card-stats">
+                            <span class="stat-item"><strong>Analog</strong> + digital</span>
+                            <span class="stat-item"><strong>Safety</strong> circuits</span>
+                        </div>
+                        <div class="card-links">
+                            <a href="https://github.com/ChethanJD/Battery-Monitoring-System" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()" class="card-link github">
+                                <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                                GitHub Repo
+                            </a>
+                        </div>
+                    </div>
+                </div>                <div class="daily-card">
+                    <div class="daily-card-image">
+                        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=400&h=250&fit=crop" alt="Transaction Service Simulation">
+                        <div class="day-badge">Backend</div>
+                        <div class="card-gradient"></div>
+                    </div>
+                    <div class="daily-card-content">
+                        <h3>Transaction Service Simulation</h3>
+                        <p class="card-description">Spring Boot service from the JPMorgan Chase job simulation: Kafka transaction events, H2 + JPA persistence, balance validation, and a REST balance-lookup API calling an incentive service.</p>
+                        <div class="card-stats">
+                            <span class="stat-item"><strong>Spring Boot</strong></span>
+                            <span class="stat-item"><strong>Kafka</strong> + REST</span>
+                        </div>
+                        <div class="card-links">
+                            <a href="https://github.com/ChethanJD/forage-midas" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()" class="card-link github">
+                                <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                                GitHub Repo
+                            </a>
+                        </div>
+                    </div>
+                </div>                <div class="daily-card">
+                    <div class="daily-card-image">
+                        <img src="assets/vlsi-rtl-verification.png" alt="VLSI RTL Verification MCP">
+                        <div class="day-badge">Tooling</div>
+                        <div class="card-gradient"></div>
+                    </div>
+                    <div class="daily-card-content">
+                        <h3>VLSI RTL Verification MCP</h3>
+                        <p class="card-description">MCP server + React view for Verilog/SystemVerilog verification: RTL inspection, reviewed testbench generation, Icarus Verilog simulation, and log + VCD waveform failure analysis.</p>
+                        <div class="card-stats">
+                            <span class="stat-item"><strong>15</strong> MCP tools</span>
+                            <span class="stat-item"><strong>Icarus</strong> + VCD</span>
+                        </div>
+                        <div class="card-links">
+                            <a href="https://github.com/ChethanJD/vlsi-rtl-verification-mcp" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()" class="card-link github">
+                                <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                                GitHub Repo
+                            </a>
+                        </div>
+                    </div>
+                </div>                <div class="daily-card">
+                    <div class="daily-card-image">
+                        <img src="assets/mnist-digit-recognition.png" alt="MNIST Digit Recognition">
+                        <div class="day-badge">Deep Learning</div>
+                        <div class="card-gradient"></div>
+                    </div>
+                    <div class="daily-card-content">
+                        <h3>MNIST Digit Recognition</h3>
+                        <p class="card-description">CNN classifier for handwritten digits 0–9 (≈99% reported test accuracy) with an OpenCV pipeline that finds and reads multiple digits in custom photos, left to right.</p>
+                        <div class="card-stats">
+                            <span class="stat-item"><strong>60k</strong> train</span>
+                            <span class="stat-item"><strong>OpenCV</strong> pipeline</span>
+                        </div>
+                        <div class="card-links">
+                            <a href="https://github.com/ChethanJD/MNIST-Digit-Recognition" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()" class="card-link github">
+                                <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                                GitHub Repo
+                            </a>
+                        </div>
+                    </div>
+                </div>                <div class="daily-card">
+                    <div class="daily-card-image">
+                        <img src="assets/human-activity-recognition.png" alt="Human Activity Recognition">
+                        <div class="day-badge">Video AI</div>
+                        <div class="card-gradient"></div>
+                    </div>
+                    <div class="daily-card-content">
+                        <h3>Human Activity Recognition</h3>
+                        <p class="card-description">Hybrid video classifier: ResNet-50 spatial features over 20-frame sequences into an LSTM for walking, running, jumping and pushups; exports ONNX. Academic team project.</p>
+                        <div class="card-stats">
+                            <span class="stat-item"><strong>4</strong> activities</span>
+                            <span class="stat-item"><strong>ONNX</strong> export</span>
+                        </div>
+                        <div class="card-links">
+                            <a href="https://github.com/ChethanJD/Human-Activity-Recognition-CNN-LSTM" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()" class="card-link github">
+                                <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                                GitHub Repo
+                            </a>
+                        </div>
+                    </div>
+                </div>                <div class="daily-card">
+                    <div class="daily-card-image">
+                        <img src="assets/arduino-disaster-relief-robot.png" alt="Disaster Relief Robot">
+                        <div class="day-badge">Embedded</div>
+                        <div class="card-gradient"></div>
+                    </div>
+                    <div class="daily-card-content">
+                        <h3>Arduino Disaster-Relief Robot</h3>
+                        <p class="card-description">Embedded C/C++ firmware reading obstacle sensors and driving DC motors via drivers for autonomous debris-removal navigation; debugged with multimeter and oscilloscope.</p>
+                        <div class="card-stats">
+                            <span class="stat-item"><strong>Arduino</strong> + Embedded C</span>
+                            <span class="stat-item"><strong>Sensors</strong> + motors</span>
+                        </div>
+                    </div>
+                </div>                <div class="daily-card">
+                    <div class="daily-card-image">
+                        <img src="assets/iot-traffic-management.png" alt="IoT Traffic Control">
+                        <div class="day-badge">IoT</div>
+                        <div class="card-gradient"></div>
+                    </div>
+                    <div class="daily-card-content">
+                        <h3>IoT Traffic Management Concept</h3>
+                        <p class="card-description">Raspberry Pi + Python + ML concept: junction sensors stream vehicle counts and conditions to a central server that predicts patterns and retimes signals dynamically.</p>
+                        <div class="card-stats">
+                            <span class="stat-item"><strong>Raspberry Pi</strong></span>
+                            <span class="stat-item"><strong>Python</strong> + ML</span>
+                        </div>
+                    </div>
+                </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Professional Experience -->
+    <section id="experience" class="content-row dark-section">
+        <div class="container">
+            <h2 class="row-title">Professional Experience</h2>
+            <div class="experience-grid">
+                <div class="experience-card microsoft">
+                    <div class="exp-header">
+                        <div class="exp-company">JPMorgan Chase & Co. (Forage Simulation)</div>
+                        <div class="exp-date">Virtual Experience</div>
+                    </div>
+                    <h3 class="exp-title">Software Engineering Job Simulation</h3>
+                    <p class="exp-location">Remote</p>
+                    <ul class="exp-highlights">
+                        <li>Built a <strong>Spring Boot service</strong> consuming transaction events from <strong>Apache Kafka</strong> into H2 via Spring Data JPA</li>
+                        <li>Validated transactions, updated user balances, and exposed a <strong>REST balance-lookup API</strong></li>
+                        <li>Integrated an external incentive service via <strong>RestTemplate</strong> with structured JSON responses</li>
+                    </ul>
+                    <div class="exp-tech">
+                        <span>Java</span><span>Spring Boot</span><span>Kafka</span><span>REST</span><span>H2 / JPA</span>
+                    </div>
+                </div>
+
+                <div class="experience-card">
+                    <div class="exp-header">
+                        <div class="exp-company">Frontend Projects</div>
+                        <div class="exp-date">2024 - Present</div>
+                    </div>
+                    <h3 class="exp-title">React / Next.js Developer (Self-Directed)</h3>
+                    <p class="exp-location">Bengaluru, India</p>
+                    <ul class="exp-highlights">
+                        <li>Built <strong>CoffeeScope</strong> with reusable components, auth, dashboards and real-time Supabase data</li>
+                        <li>Deployed <strong>live web projects</strong> with responsive, accessible, cross-browser UI</li>
+                        <li>Practices <strong>API integration</strong>, charts/maps and performance tuning</li>
+                    </ul>
+                    <div class="exp-tech">
+                        <span>React</span>
+                        <span>Next.js</span>
+                        <span>TypeScript</span>
+                        <span>Tailwind</span>
+                    </div>
+                </div>
+
+                <div class="experience-card amazon">
+                    <div class="exp-header">
+                        <div class="exp-company">Embedded & IoT Builds</div>
+                        <div class="exp-date">2023 - Present</div>
+                    </div>
+                    <h3 class="exp-title">Embedded Systems Maker</h3>
+                    <p class="exp-location">Bengaluru, India</p>
+                    <ul class="exp-highlights">
+                        <li>Wrote <strong>Embedded C/C++ firmware</strong> for sensor-driven robots and motor control</li>
+                        <li>Designed <strong>IoT traffic-control concept</strong> on Raspberry Pi with Python/ML</li>
+                        <li>Built <strong>battery protection circuits</strong> and debugged with scopes/meters</li>
+                    </ul>
+                    <div class="exp-tech">
+                        <span>Embedded C</span>
+                        <span>Arduino</span>
+                        <span>Raspberry Pi</span>
+                        <span>Verilog</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+    <!-- Skills Section -->
+    <section id="skills" class="skills-section">
+        <div class="container">
+            <div class="skills-header">
+                <h2 class="section-title">Technical Expertise</h2>
+                <p class="section-subtitle">Frontend + embedded builder — React/Next.js up front, Arduino/Raspberry Pi underneath</p>
+            </div>
+
+            <!-- Featured Skills Banner -->
+            <div class="featured-skills">
+                <div class="featured-skill highlight">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" alt="React">
+                    <span>React / Next.js</span>
+                </div>
+                <div class="featured-skill">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg" alt="TypeScript">
+                    <span>TypeScript</span>
+                </div>
+                <div class="featured-skill">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" alt="Python">
+                    <span>Python</span>
+                </div>
+                <div class="featured-skill">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/arduino/arduino-original.svg" alt="Arduino">
+                    <span>Arduino / IoT</span>
+                </div>
+                <div class="featured-skill">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" alt="Git">
+                    <span>Git / GitHub</span>
+                </div>
+            </div>
+
+            <h3 class="row-title section-title-centered">
+                <span class="title-underline">Languages & Frontend</span>
+            </h3>
+            <div class="skills-grid-new">
+                <div class="skill-card-new glow">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" alt="React" class="skill-logo">
+                    <div class="skill-info">
+                        <span class="skill-name">React / Next.js</span>
+                        <div class="skill-bar"><div class="skill-progress azure" style="width: 88%"></div></div>
+                    </div>
+                </div>
+                <div class="skill-card-new">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" alt="Python" class="skill-logo">
+                    <div class="skill-info">
+                        <span class="skill-name">Python</span>
+                        <div class="skill-bar"><div class="skill-progress" style="width: 95%"></div></div>
+                    </div>
+                </div>
+                <div class="skill-card-new">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg" alt="TypeScript" class="skill-logo">
+                    <div class="skill-info">
+                        <span class="skill-name">TypeScript</span>
+                        <div class="skill-bar"><div class="skill-progress" style="width: 85%"></div></div>
+                    </div>
+                </div>
+                <div class="skill-card-new">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg" alt="Java" class="skill-logo">
+                    <div class="skill-info">
+                        <span class="skill-name">Java</span>
+                        <div class="skill-bar"><div class="skill-progress" style="width: 85%"></div></div>
+                    </div>
+                </div>
+                <div class="skill-card-new">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" alt="HTML/CSS" class="skill-logo">
+                    <div class="skill-info">
+                        <span class="skill-name">HTML5 / CSS3 / Tailwind</span>
+                        <div class="skill-bar"><div class="skill-progress" style="width: 88%"></div></div>
+                    </div>
+                </div>
+                <div class="skill-card-new">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" alt="Node.js" class="skill-logo">
+                    <div class="skill-info">
+                        <span class="skill-name">Node.js / REST APIs</span>
+                        <div class="skill-bar"><div class="skill-progress" style="width: 82%"></div></div>
+                    </div>
+                </div>
+            </div>
+
+            <h3 class="row-title section-title-centered">
+                <span class="title-underline">Frontend & Embedded Focus</span>
+            </h3>
+            <div class="ds-tags-container">
+                <span class="ds-tag">Responsive UI</span>
+                <span class="ds-tag">Reusable Components</span>
+                <span class="ds-tag">Auth + Forms</span>
+                <span class="ds-tag">Dashboards + Charts</span>
+                <span class="ds-tag">API Integration</span>
+                <span class="ds-tag">Accessibility</span>
+                <span class="ds-tag">Embedded C/C++</span>
+                <span class="ds-tag">Sensor Integration</span>
+                <span class="ds-tag">Motor Control</span>
+                <span class="ds-tag">UART / I2C / SPI</span>
+                <span class="ds-tag">Verilog</span>
+                <span class="ds-tag">Circuit Debugging</span>
+            </div>
+
+            <h3 class="row-title section-title-centered">
+                <span class="title-underline">Tools & Platforms</span>
+            </h3>
+            <div class="skills-grid-new">
+                <div class="skill-card-new">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" alt="Git" class="skill-logo">
+                    <div class="skill-info">
+                        <span class="skill-name">Git / GitHub</span>
+                        <div class="skill-bar"><div class="skill-progress azure" style="width: 88%"></div></div>
+                    </div>
+                </div>
+                <div class="skill-card-new">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vercel/vercel-original.svg" alt="Vercel" class="skill-logo">
+                    <div class="skill-info">
+                        <span class="skill-name">Vercel / Netlify</span>
+                        <div class="skill-bar"><div class="skill-progress aws" style="width: 85%"></div></div>
+                    </div>
+                </div>
+                <div class="skill-card-new">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg" alt="MySQL" class="skill-logo">
+                    <div class="skill-info">
+                        <span class="skill-name">MySQL / Supabase</span>
+                        <div class="skill-bar"><div class="skill-progress k8s" style="width: 80%"></div></div>
+                    </div>
+                </div>
+                <div class="skill-card-new">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/matlab/matlab-original.svg" alt="MATLAB" class="skill-logo">
+                    <div class="skill-info">
+                        <span class="skill-name">MATLAB</span>
+                        <div class="skill-bar"><div class="skill-progress docker" style="width: 78%"></div></div>
+                    </div>
+                </div>
+                <div class="skill-card-new">
+                    <div class="skill-logo rag-logo">C++</div>
+                    <div class="skill-info">
+                        <span class="skill-name">C / C++</span>
+                        <div class="skill-bar"><div class="skill-progress" style="width: 80%"></div></div>
+                    </div>
+                </div>
+                <div class="skill-card-new">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" alt="GitHub Actions" class="skill-logo invert">
+                    <div class="skill-info">
+                        <span class="skill-name">CI/CD</span>
+                        <div class="skill-bar"><div class="skill-progress" style="width: 90%"></div></div>
+                    </div>
+                </div>
+            </div>
+
+            <h3 class="row-title section-title-centered">
+                <span class="title-underline">AI, Data & Embedded</span>
+            </h3>
+            <div class="skills-grid-new">
+                <div class="skill-card-new glow">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tensorflow/tensorflow-original.svg" alt="TensorFlow" class="skill-logo">
+                    <div class="skill-info">
+                        <span class="skill-name">TensorFlow (CNN/LSTM basics)</span>
+                        <div class="skill-bar"><div class="skill-progress ml" style="width: 70%"></div></div>
+                    </div>
+                </div>
+                <div class="skill-card-new glow">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pytorch/pytorch-original.svg" alt="PyTorch" class="skill-logo">
+                    <div class="skill-info">
+                        <span class="skill-name">PyTorch (fundamentals)</span>
+                        <div class="skill-bar"><div class="skill-progress ml" style="width: 68%"></div></div>
+                    </div>
+                </div>
+                <div class="skill-card-new glow">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/arduino/arduino-original.svg" alt="Arduino" class="skill-logo">
+                    <div class="skill-info">
+                        <span class="skill-name">Arduino / Sensors</span>
+                        <div class="skill-bar"><div class="skill-progress ml" style="width: 85%"></div></div>
+                    </div>
+                </div>
+                <div class="skill-card-new glow special">
+                    <div class="skill-logo gpt-logo">GPT</div>
+                    <div class="skill-info">
+                        <span class="skill-name">OpenAI API + Prompt Eng.</span>
+                        <div class="skill-bar"><div class="skill-progress ml" style="width: 80%"></div></div>
+                    </div>
+                </div>
+                <div class="skill-card-new glow special">
+                    <div class="skill-logo langchain-logo">📊</div>
+                    <div class="skill-info">
+                        <span class="skill-name">NumPy / Pandas</span>
+                        <div class="skill-bar"><div class="skill-progress ml" style="width: 78%"></div></div>
+                    </div>
+                </div>
+                <div class="skill-card-new glow special">
+                    <div class="skill-logo rag-logo">IoT</div>
+                    <div class="skill-info">
+                        <span class="skill-name">IoT + Verilog</span>
+                        <div class="skill-bar"><div class="skill-progress ml" style="width: 82%"></div></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Education -->
+    <section id="education" class="content-row dark-section">
+        <div class="container">
+            <h2 class="row-title">Education</h2>
+            <div class="edu-grid">
+                <div class="edu-card">
+                    <div class="edu-icon">🎓</div>
+                    <div class="edu-content">
+                        <h3>B.E. — Electronics & Communication Engineering</h3>
+                        <p>Presidency University, Bengaluru, Karnataka</p>
+                        <span class="edu-date">2023 – 2027 · 4th Year, 7th Sem · CGPA 8.31/10</span>
+                    </div>
+                </div>
+                <div class="edu-card">
+                    <div class="edu-icon">📚</div>
+                    <div class="edu-content">
+                        <h3>Pre-University Course</h3>
+                        <p>St. Joseph PU College, Kodagu, Karnataka</p>
+                        <span class="edu-date">2021 – 2023 · Aggregate 80.6%</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Certifications -->
+    <section id="certifications" class="content-row" style="background: #0a0a0a;">
+        <div class="container">
+            <h2 class="row-title" style="text-align: center; margin-bottom: 10px;">Certifications</h2>
+            <p style="text-align: center; color: #888; margin-bottom: 40px;">5 Technical Certifications</p>
+
+            <div class="cert-category" style="margin-bottom: 40px;">
+                <h3 style="color: #0f62fe; margin-bottom: 20px; display: flex; align-items: center; gap: 10px;">
+                    <span style="background: #0f62fe; color: #fff; padding: 4px 12px; border-radius: 4px; font-size: 0.85rem;">NPTEL</span>
+                </h3>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 16px;">
+                    <div class="cert-card" style="background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); border-radius: 12px; padding: 20px; border: 1px solid #333;">
+                        <h4 style="color: #fff; margin: 0 0 8px 0;">Hardware Modeling Using Verilog</h4>
+                        <p style="color: #888; font-size: 0.85rem; margin: 0;">NPTEL Certification</p>
+                    </div>
+                    <div class="cert-card" style="background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); border-radius: 12px; padding: 20px; border: 1px solid #333;">
+                        <h4 style="color: #fff; margin: 0 0 8px 0;">Digital Design Using Verilog</h4>
+                        <p style="color: #888; font-size: 0.85rem; margin: 0;">NPTEL Certification</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="cert-category" style="margin-bottom: 40px;">
+                <h3 style="color: #2ec866; margin-bottom: 20px; display: flex; align-items: center; gap: 10px;">
+                    <span style="background: #2ec866; color: #000; padding: 4px 12px; border-radius: 4px; font-size: 0.85rem;">DataCamp + Scaler</span>
+                </h3>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 16px;">
+                    <div class="cert-card" style="background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); border-radius: 12px; padding: 20px; border: 1px solid #333;">
+                        <h4 style="color: #fff; margin: 0 0 8px 0;">Working with the OpenAI API</h4>
+                        <p style="color: #888; font-size: 0.85rem; margin: 0;">DataCamp</p>
+                    </div>
+                    <div class="cert-card" style="background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); border-radius: 12px; padding: 20px; border: 1px solid #333;">
+                        <h4 style="color: #fff; margin: 0 0 8px 0;">Prompt Engineering with the OpenAI API</h4>
+                        <p style="color: #888; font-size: 0.85rem; margin: 0;">DataCamp</p>
+                    </div>
+                    <div class="cert-card" style="background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); border-radius: 12px; padding: 20px; border: 1px solid #333;">
+                        <h4 style="color: #fff; margin: 0 0 8px 0;">Certificate of Excellence — Python for Beginners</h4>
+                        <p style="color: #888; font-size: 0.85rem; margin: 0;">Scaler Topics</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="cert-category" style="margin-bottom: 40px;">
+                <h3 style="color: #a78bfa; margin-bottom: 20px; display: flex; align-items: center; gap: 10px;">
+                    <span style="background: #8b5cf6; color: #fff; padding: 4px 12px; border-radius: 4px; font-size: 0.85rem;">Virtual Experience</span>
+                </h3>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 16px;">
+                    <a href="assets/jpmorgan-software-engineering-simulation.pdf" target="_blank" rel="noopener" class="cert-card" style="background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); border-radius: 12px; padding: 20px; border: 1px solid #333; text-decoration: none;">
+                        <div style="display: flex; justify-content: space-between; align-items: start;">
+                            <div>
+                                <h4 style="color: #fff; margin: 0 0 8px 0;">Software Engineering Job Simulation</h4>
+                                <p style="color: #888; font-size: 0.85rem; margin: 0;">JPMorgan Chase &amp; Co. · Forage · Certificate of Completion</p>
+                                <span style="color: #666; font-size: 0.8rem;">July 28, 2026 · Virtual job simulation</span>
+                                <p style="color: #888; font-size: 0.85rem; margin: 8px 0 0;">Hands-on tasks: project setup, Kafka and H2 integration, REST API integration and controller work.</p>
+                                <span style="color: #a78bfa; font-size: 0.85rem;">View Certificate 🔗</span>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="assets/codtech-vlsi-internship.pdf" target="_blank" rel="noopener" class="cert-card" style="background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); border-radius: 12px; padding: 20px; border: 1px solid #333; text-decoration: none;">
+                        <div style="display: flex; justify-content: space-between; align-items: start;">
+                            <div>
+                                <h4 style="color: #fff; margin: 0 0 8px 0;">Certificate of Internship Experience — VLSI</h4>
+                                <p style="color: #888; font-size: 0.85rem; margin: 0;">CODTECH IT Solutions Pvt. Ltd. · Internship</p>
+                                <span style="color: #666; font-size: 0.8rem;">Jun 15 – Jul 13, 2026 · 4 weeks · Successfully completed</span>
+                                <p style="color: #888; font-size: 0.85rem; margin: 8px 0 0;">Four-week VLSI internship completed successfully with noted dedication and technical contribution.</p>
+                                <span style="color: #a78bfa; font-size: 0.85rem;">View Certificate 🔗</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <div class="cert-category" style="margin-bottom: 40px;">
+                <h3 style="color: #38bdf8; margin-bottom: 20px; display: flex; align-items: center; gap: 10px;">
+                    <span style="background: #0284c7; color: #fff; padding: 4px 12px; border-radius: 4px; font-size: 0.85rem;">Online Courses</span>
+                </h3>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 16px;">
+                    <a href="assets/isro-ai-ml-geodata-analytics.pdf" target="_blank" rel="noopener" class="cert-card" style="background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); border-radius: 12px; padding: 20px; border: 1px solid #333; text-decoration: none;">
+                        <div style="display: flex; justify-content: space-between; align-items: start;">
+                            <div>
+                                <h4 style="color: #fff; margin: 0 0 8px 0;">AI/ML for Geodata Analytics</h4>
+                                <p style="color: #888; font-size: 0.85rem; margin: 0;">IIRS, ISRO · Certificate of Participation in an Online Course</p>
+                                <span style="color: #666; font-size: 0.8rem;">Aug 3 – Aug 14, 2026 · 10 hours · Issued Sep 15, 2026, Dehradun</span>
+                                <p style="color: #888; font-size: 0.85rem; margin: 8px 0 0;">Participated in a 10-hour online course on AI/ML for Geodata Analytics conducted by the Indian Institute of Remote Sensing (IIRS), ISRO.</p>
+                                <span style="color: #38bdf8; font-size: 0.85rem;">View Certificate 🔗</span><br>
+                                <span style="color: #666; font-size: 0.8rem;">Issuer verification page: <span role="link" tabindex="0" style="color: #38bdf8; cursor: pointer; text-decoration: underline;" onclick="event.stopPropagation();window.open('https://isrolms.iirs.gov.in/mod/customcert/verify_certificate.php','_blank','noopener')" onkeydown="if(event.key==='Enter'){event.stopPropagation();window.open('https://isrolms.iirs.gov.in/mod/customcert/verify_certificate.php','_blank','noopener')}">isrolms.iirs.gov.in ↗</span></span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact-section">
+        <div class="container">
+            <div class="contact-card">
+                <div class="contact-icon">📬</div>
+                <h2>Let's Connect!</h2>
+                <p>Frontend Developer candidate and ECE undergraduate, open to internships, collaborations and interesting builds.</p>
+                <div class="contact-links">
+                    <a href="mailto:chethanjd2006@gmail.com" class="contact-link">
+                        <span class="link-icon">📧</span>
+                        chethanjd2006@gmail.com
+                    </a>
+                    <a href="https://www.linkedin.com/in/chethanjd" target="_blank" rel="noopener" class="contact-link">
+                        <span class="link-icon">💼</span>
+                        LinkedIn Profile
+                    </a>
+                    <a href="https://github.com/ChethanJD" target="_blank" rel="noopener" class="contact-link">
+                        <span class="link-icon">🐙</span>
+                        GitHub Profile
+                    </a>
+                    <span class="contact-link">
+                        <span class="link-icon">📍</span>
+                        Karnataka, India
+                    </span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>© 2026 Chethan J D. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Profile configuration
+        const profileConfig = {
+            recruiter: {
+                localVideo: 'assets/videos/bg-1.mp4',
+                image: 'assets/profiles/profile.png'
+            },
+            developer: {
+                localVideo: 'assets/videos/bg-1.mp4',
+                image: 'assets/profiles/profile.png'
+            },
+            visitor: {
+                localVideo: 'assets/videos/bg-2.mp4',
+                image: 'assets/profiles/profile.png'
+            },
+            adventurer: {
+                localVideo: 'assets/videos/bg-2.mp4',
+                image: 'assets/profiles/profile.png'
+            }
+        };
+
+        // Get profile from URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const profile = urlParams.get('profile') || 'recruiter';
+
+        // Update profile name in titles
+        document.getElementById('profile-name').textContent = profile;
+        document.querySelectorAll('.profile-name-span').forEach(el => el.textContent = profile);
+
+        // Update nav profile image
+        const navImg = document.getElementById('nav-profile-img');
+        const config = profileConfig[profile] || profileConfig.recruiter;
+        navImg.src = config.image;
+
+        // Background video: one fixed clip per profile (recruiter = bg-1, visitor = bg-2).
+        // Static page (no framework), so no SSR/hydration concerns; runs once on load.
+        (function () {
+            var SOURCES = [
+                'assets/videos/bg-1.mp4',
+                'assets/videos/bg-2.mp4'
+            ];
+            var video = document.getElementById('bg-video');
+            if (!video || !SOURCES.length) return;
+            if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+            var pick = (config && config.localVideo) || SOURCES[0];
+
+            if (SOURCES.indexOf(pick) < 0) pick = SOURCES[0];
+            video.muted = true;
+            video.setAttribute('muted', '');
+            video.playsInline = true;
+
+            var retried = false;
+            var unlocked = false;
+            function attemptPlay() {
+                if (!video.paused) return;
+                try {
+                    var p = video.play();
+                    if (p && typeof p.catch === 'function') p.catch(function () { /* autoplay blocked: gesture unlock may follow */ });
+                } catch (e) { /* unsupported: fallback stays */ }
+            }
+            function unlock() {
+                if (unlocked) return;
+                unlocked = true;
+                attemptPlay();
+            }
+            function onPlaying() { video.classList.add('ready'); detach(); }
+            function onError() {
+                if (!retried) {
+                    retried = true;
+                    var others = SOURCES.filter(function (s) { return s !== pick; });
+                    if (others.length) { video.src = others[0]; video.load(); return; }
+                }
+                video.removeAttribute('src');
+                video.load();
+                detach();
+            }
+            function detach() {
+                video.removeEventListener('playing', onPlaying);
+                video.removeEventListener('error', onError);
+                video.removeEventListener('loadeddata', attemptPlay);
+                video.removeEventListener('canplay', attemptPlay);
+                document.removeEventListener('pointerdown', unlock);
+                document.removeEventListener('keydown', unlock);
+            }
+            video.addEventListener('playing', onPlaying);
+            video.addEventListener('error', onError);
+            video.addEventListener('loadeddata', attemptPlay);
+            video.addEventListener('canplay', attemptPlay);
+            document.addEventListener('pointerdown', unlock);
+            document.addEventListener('keydown', unlock);
+            video.src = pick;
+            video.load();
+            attemptPlay();
+        })();
+
+        // Recruiter view skips the Continue Watching row; visitors still see it
+        const contRow = document.getElementById('continue-watching');
+        if (contRow && profile === 'recruiter') contRow.style.display = 'none';
+
+        // Per-profile hero voice: recruiters get the professional pitch, visitors get the friendly tour
+        const heroSub = document.querySelector('.hero-subtitle');
+        const rowTitle = document.querySelector('#projects .row-title');
+        if (profile === 'visitor') {
+            if (heroSub) heroSub.textContent = 'Curious Visitor · Take the Friendly Tour';
+            if (rowTitle) rowTitle.innerHTML = 'A Quick Tour for <span id="profile-name">visitor</span>';
+            const pn = document.getElementById('profile-name');
+            if (pn) pn.textContent = 'visitor';
+        }
+
+        // Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            const navbar = document.querySelector('.navbar');
+            navbar.classList.toggle('scrolled', window.scrollY > 50);
+        });
+
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+    </script>
+
+
+
+    <script>
+      (function () {
+        var hb = document.getElementById("rf-hamburger");
+        var menu = document.querySelector(".nav-menu");
+        if (!hb || !menu) return;
+        hb.addEventListener("click", function () {
+          hb.classList.toggle("active");
+          menu.classList.toggle("active");
+        });
+        menu.querySelectorAll("a").forEach(function (a) {
+          a.addEventListener("click", function () {
+            hb.classList.remove("active");
+            menu.classList.remove("active");
+          });
+        });
+      })();
+    </script>
+<script>if("serviceWorker" in navigator){addEventListener("load",()=>navigator.serviceWorker.register("/sw.js").catch(()=>{}))}</script>
+</body>
+</html>

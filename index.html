@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chethan J D — Who's Watching?</title>
+<meta name="description" content="Profile-gated portfolio entry. Choose a profile to personalize the experience.">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#141414">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="css/fonts.css">
+<link rel="stylesheet" href="css/gate.css">
+<link rel="icon" href="icons/icon-192.png">
+</head>
+<body class="gate">
+<div class="enter-overlay" id="enter-overlay" role="button" tabindex="0" aria-label="Click to enter">
+  <div><div class="brand-pulse">Chethan J D</div><p style="color:#888">Click anywhere to enter</p></div>
+</div>
+<main id="profile-selection" aria-label="Choose a profile">
+  <h1 style="font-family:var(--font-display);letter-spacing:2px;text-align:center">Who's Watching?</h1>
+  <div class="profiles-container">
+    <a class="profile-card" href="browse.html?profile=recruiter"><div class="profile-avatar"><img src="https://www.dandaakhilreddy.com/assets/whos-watching/RECRUITER_iMAGE.png" alt="Recruiter"></div><p class="profile-name">Recruiter</p></a>
+    <a class="profile-card" href="browse.html?profile=visitor"><div class="profile-avatar"><img src="https://www.dandaakhilreddy.com/assets/whos-watching/ADVENTURER_IMAGE.png" alt="Visitor"></div><p class="profile-name">Visitor</p></a>
+  </div>
+  <p style="text-align:center;color:#666;font-size:.85rem;margin-top:18px"><a href="browse.html" style="color:#888">Continue as guest →</a></p>
+</main>
+<audio id="intro-sound" src="assets/netflix-sound.mp3" preload="auto"></audio>
+<script>
+const overlay = document.getElementById('enter-overlay');
+const sound = document.getElementById('intro-sound');
+const dismiss = () => {
+  overlay.classList.add('hidden');
+  if (sound) sound.play().catch(() => {});
+};
+overlay.addEventListener('click', dismiss);
+overlay.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') dismiss(); });
+document.querySelectorAll('.profile-card').forEach(card => {
+  card.addEventListener('click', (e) => {
+    e.preventDefault();
+    const href = card.getAttribute('href');
+    card.style.transform = 'scale(1.08)';
+    setTimeout(() => { window.location.href = href; }, 280);
+  });
+});
+if ('serviceWorker' in navigator) window.addEventListener('load', () => navigator.serviceWorker.register('/sw.js').catch(() => {}));
+</script>
+</body>
+</html>
