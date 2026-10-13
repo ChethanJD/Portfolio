@@ -127,6 +127,23 @@
             outline: 2px solid #fff;
             outline-offset: 2px;
         }
+
+        /* Small phones: force single-column grids that use inline minmax() */
+        @media (max-width: 480px) {
+            .cert-category > div[style],
+            #about div[style*="minmax(300px"] {
+                grid-template-columns: 1fr !important;
+            }
+            .cert-card {
+                padding: 16px !important;
+            }
+            .hero-description {
+                font-size: 0.95rem;
+            }
+            .experience-card {
+                padding: 18px !important;
+            }
+        }
     </style>
 <link rel="manifest" href="/manifest.webmanifest">
 <link rel="icon" href="icons/icon-192.png">
@@ -312,7 +329,7 @@
                     </div>
                 </div>
                 <div class="netflix-card" onclick="document.getElementById('certifications').scrollIntoView({behavior: 'smooth'})">
-                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=225&fit=crop" alt="Certifications">
+                    <img src="assets/profiles/profile.png" alt="Certifications">
                     <div class="netflix-card-overlay">
                         <span class="netflix-card-title">Certifications</span>
                     </div>
